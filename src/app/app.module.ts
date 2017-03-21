@@ -2,19 +2,36 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { RecipeListComponent } from './recipe-list/recipe-list.component';
+import { RecipeDataService } from './recipe-data.service';
+
+const ROUTES = [
+  {
+    path: '',
+    redirectTo: 'posts',
+    pathMatch: 'full'
+  },
+  {
+    path: 'posts',
+    component: RecipeListComponent
+  }
+];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RecipeListComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(ROUTES)
   ],
-  providers: [],
+  providers: [RecipeDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
