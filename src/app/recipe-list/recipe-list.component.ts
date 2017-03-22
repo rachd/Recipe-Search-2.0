@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Recipe } from '../recipe';
 
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.css']
 })
-export class RecipeListComponent implements OnInit {
+export class RecipeListComponent {
 
-  constructor() { }
+  @Input()
+  todos: Recipe[];
 
-  ngOnInit() {
+  @Output()
+  toggleFavorite: EventEmitter<Recipe> = new EventEmitter();
+
+  constructor() {
+  }
+
+  onToggleRecipeFavorite(recipe: Recipe) {
+    this.toggleFavorite.emit(recipe);
   }
 
 }

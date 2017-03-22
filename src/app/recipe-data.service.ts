@@ -57,4 +57,8 @@ export class RecipeDataService {
       .pop();
   }
 
+  toggleRecipeFavorite(recipe: Recipe) {
+    // return this.updateRecipeById(id, {favorite: !})
+  }
+
 }
