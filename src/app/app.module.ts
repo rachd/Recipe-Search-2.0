@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
-import { RecipeListItemComponent } from './recipe-list-item/recipe-list-item.component';
+// import { RecipeListItemComponent } from './recipe-list-item/recipe-list-item.component';
 import { RecipeDataService } from './recipe-data.service';
 
 const ROUTES = [
@@ -25,7 +25,7 @@ const ROUTES = [
   declarations: [
     AppComponent,
     RecipeListComponent,
-    RecipeListItemComponent
+    // RecipeListItemComponent
   ],
   imports: [
     BrowserModule,

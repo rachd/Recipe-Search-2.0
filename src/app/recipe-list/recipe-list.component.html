@@ -1,10 +1,10 @@
 <section class="main" *ngIf="recipes.length > 0">
   <ul class="recipe-list">
     <li *ngFor="let recipe of recipes" [class.favorite]="recipe.favorite">
-      <recipe-list-item
+      <!--<recipe-list-item
         [recipe]="recipe"
         (toggleFavorite)="onToggleRecipeFavorite($event)">
-      </recipe-list-item>
+      </recipe-list-item>-->
     </li>
   </ul>
 </section>
