@@ -11,8 +11,10 @@ router.get('/posts', (req, res) => {
   var couchbase = require('couchbase');
   var myCluster = new couchbase.Cluster('couchbase://localhost');
   var myBucket = myCluster.openBucket('recipes');
-  myBucket.insert('recipe1', {name:'recipe1'}, function(err, res) {
-    console.log('Success!');
+
+  //get all recipes
+  myBucket.get('recipe1', function(err, res) {
+    console.log('Value: ', res.value);
   });
 });
 
