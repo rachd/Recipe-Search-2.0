@@ -1,6 +1,6 @@
 const mongoose = require('mongoose'),
       dbConfig = require('./configLoader').databaseConfig,
-      connectionString = 'mongodb://' + dbConfig.host + '/' + dbConfig.database;
+      connectionString = `mongodb://${dbConfig.host}/${dbConfig.database}`;
 
 let connection = null;
 
