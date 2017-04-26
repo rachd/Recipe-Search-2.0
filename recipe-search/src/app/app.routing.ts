@@ -1,10 +1,14 @@
 import { RouterModule, Routes } from '@angular/router';
+import { IRouting } from './shared/interfaces';
 
-// import { CustomersComponent }     from './customers/customers.component';
+import { RecipesComponent }     from './recipes/recipes.component';
 
-const app_routes: Routes = [
-  { path: '',  pathMatch:'full', redirectTo: '/customers' },
-  // { path: 'customers', component: CustomersComponent }
+const routes: Routes = [
+  { path: 'recipes', component: RecipesComponent },
+  { path: '**', pathMatch:'full', redirectTo: '/recipes' }
 ];
 
-export const app_routing = RouterModule.forRoot(app_routes);
+export const appRouting: IRouting = {
+    routes: RouterModule.forRoot(routes),
+    components: [ RecipesComponent ]
+};
