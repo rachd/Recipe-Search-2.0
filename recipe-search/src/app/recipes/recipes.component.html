@@ -9,7 +9,7 @@
       <h2>Filters</h2>
     </div>
     <div class="col-xs-12 col-sm-9 recipes__results">
-      <h2>Results</h2>
+      <recipe-card *ngFor="let recipe of recipes" [recipe]="recipe"></recipe-card>
     </div>
   </div>
 </div>

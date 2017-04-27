@@ -1,18 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../core/data.service';
+import { IRecipe } from '../shared/interfaces';
 
 @Component({
   moduleId: module.id,
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
-  styleUrls: ['./recipes.component.css']
+  styleUrls: ['./_recipes.component.scss']
 })
 export class RecipesComponent implements OnInit {
   title: String;
+  recipes: [IRecipe];
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    this.title = "Recipes"
+    this.title = "Recipes";
+    this.recipes = this.dataService.getRecipes();
   }
 
 }

@@ -4,3 +4,15 @@ export interface IRouting {
     routes: ModuleWithProviders,
     components: any[]
 }
+
+export interface IRecipe {
+  id: number,
+  name: String,
+  category: String,
+  ingredients: [IIngredient]
+}
+
+export interface IIngredient {
+  ingredient: String,
+  quantity: String
+}
