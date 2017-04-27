@@ -6,11 +6,13 @@ import { HttpModule } from '@angular/http';
 import { appRouting } from './app.routing';
 import { CoreModule }   from './core/core.module';
 import { AppComponent } from './app.component';
+import { RecipesFormComponent } from './recipes/recipes-form/recipes-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    appRouting.components
+    appRouting.components,
+    RecipesFormComponent
   ],
   imports: [
     BrowserModule,
