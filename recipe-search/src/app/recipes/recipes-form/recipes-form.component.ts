@@ -16,16 +16,20 @@ export class RecipesFormComponent {
     ingredients: [{ingredient: "", quantity: ""}]
   }
 
-  addRecipeForm: FormGroup;
+  recipeForm: FormGroup;
 
   constructor(private dataService: DataService, private fb: FormBuilder) {
     this.createForm();
   }
 
   createForm() {
-    this.addRecipeForm = this.fb.group({
+    this.recipeForm = this.fb.group({
       name: ['', Validators.required ],
-      category: ''
+      category: '',
+      ingredients: this.fb.group({
+        ingredient: '',
+        quantity: ''
+      })
     });
   }
 

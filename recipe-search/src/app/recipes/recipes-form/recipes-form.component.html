@@ -1,4 +1,4 @@
-<form [formGroup]="addRecipeForm" novalidate>
+<form [formGroup]="recipeForm" novalidate>
   <div class="form-group">
     <label class="center-block">Name:
       <input type="text" class="form-control" formControlName="name">
@@ -10,8 +10,22 @@
     <label class="center-block"><input type="radio" formControlName="category" value="Soups">Soups</label>
     <label class="center-block"><input type="radio" formControlName="category" value="Desserts">Desserts</label>
   </div>
-  <!--<button type="submit" class="btn btn-default">Submit</button>-->
+  <div class="well well-lg" formGroupName="ingredients">
+
+    <div class="form-group">
+      <label class="center-block">Ingredient:
+        <input class="form-control" formControlName="ingredient">
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label class="center-block">Quantity:
+        <input class="form-control" formControlName="quantity">
+      </label>
+    </div>
+
+  </div>
 </form>
 
-<p>Form value: {{ addRecipeForm.value | json }}</p>
-<p>Form status: {{ addRecipeForm.status | json }}</p>
+<p>Form value: {{ recipeForm.value | json }}</p>
+<p>Form status: {{ recipeForm.status | json }}</p>
