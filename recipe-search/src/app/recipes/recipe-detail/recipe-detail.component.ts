@@ -9,13 +9,20 @@ import { IRecipe } from '../../shared/interfaces';
   styleUrls: ['./recipe-detail.component.scss']
 })
 export class RecipeDetailComponent implements OnInit {
-  @Input() recipe: IRecipe;
+  recipe: IRecipe;
 
   constructor(private dataService: DataService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.recipe = this.dataService.getSingleRecipe(this.route.params['id']);
-    console.log(this.route.params['id']);
+    let id = this.route.snapshot.params['id'];
+    this.getRecipe(id);
+  }
+
+  getRecipe(id: String) {
+    this.dataService.getSingleRecipe(id).subscribe((recipe: IRecipe) => {
+      console.log(recipe);
+      this.recipe = recipe;
+    });
   }
 
 }

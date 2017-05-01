@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../../core/data.service';
 import { IRecipe, IIngredient } from '../../shared/interfaces';
 
@@ -7,20 +8,30 @@ import { IRecipe, IIngredient } from '../../shared/interfaces';
   templateUrl: './recipes-form.component.html',
   styleUrls: ['./recipes-form.component.scss']
 })
-export class RecipesFormComponent implements OnInit {
+export class RecipesFormComponent {
 
   recipe: IRecipe = {
     name: '',
     category: '',
-    ingredients: [{ingredient: "Eggs", quantity: "2"}]
+    ingredients: [{ingredient: "", quantity: ""}]
   }
-  constructor(private dataService: DataService) { }
 
-  ngOnInit() {
+  addRecipeForm: FormGroup;
+
+  constructor(private dataService: DataService, private fb: FormBuilder) {
+    this.createForm();
+  }
+
+  createForm() {
+    this.addRecipeForm = this.fb.group({
+      name: ['', Validators.required ],
+      category: ''
+    });
   }
 
   submit() {
-    this.dataService.insertRecipe(this.recipe);
+    console.log(this.recipe);
+    // this.dataService.insertRecipe(this.recipe);
   }
 
 }

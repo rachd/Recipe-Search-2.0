@@ -1,13 +1,17 @@
-<form (ngSubmit)="submit()" #recipeForm="ngForm" novalidate>
+<form [formGroup]="addRecipeForm" novalidate>
   <div class="form-group">
-    <label>Name</label>
-    <input type="text" class="form-control" name="name" [(ngModel)]="recipe.name" #name="ngModel" required/>
-    <div class="alert alert-danger" [hidden]="name.untouched || name.valid">Recipe name is required.</div>
+    <label class="center-block">Name:
+      <input type="text" class="form-control" formControlName="name">
+    </label>
   </div>
-  <div class="form-group">
-    <label>Category</label>
-    <input type="text" class="form-control" name="category" [(ngModel)]="recipe.category" #category="ngModel" required/>
-    <div class="alert alert-danger" [hidden]="category.untouched || category.valid">Recipe category is required.</div>
+  <div class="form-group radio">
+    <p>Category:</p>
+    <label class="center-block"><input type="radio" formControlName="category" value="Breads">Breads</label>
+    <label class="center-block"><input type="radio" formControlName="category" value="Soups">Soups</label>
+    <label class="center-block"><input type="radio" formControlName="category" value="Desserts">Desserts</label>
   </div>
-  <button type="submit" class="btn btn-default" [disabled]="!recipeForm.valid">Submit</button>
+  <!--<button type="submit" class="btn btn-default">Submit</button>-->
 </form>
+
+<p>Form value: {{ addRecipeForm.value | json }}</p>
+<p>Form status: {{ addRecipeForm.status | json }}</p>

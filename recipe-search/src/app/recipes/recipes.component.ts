@@ -10,13 +10,17 @@ import { IRecipe } from '../shared/interfaces';
 })
 export class RecipesComponent implements OnInit {
   title: String;
-  recipes: [IRecipe];
+  recipes: IRecipe[];
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
     this.title = "Recipes";
-    this.recipes = this.dataService.getRecipes();
+    this.getRecipes();
+  }
+
+  getRecipes() {
+    this.dataService.getRecipes().subscribe((recipes: IRecipe[]) => this.recipes = recipes);
   }
 
 }

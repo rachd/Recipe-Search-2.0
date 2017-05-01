@@ -6,6 +6,7 @@ export interface IRouting {
 }
 
 export interface IRecipe {
+  _id?: string,
   name: String,
   category: String,
   ingredients: [IIngredient]
