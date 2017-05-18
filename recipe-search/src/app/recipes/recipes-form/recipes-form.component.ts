@@ -13,7 +13,8 @@ export class RecipesFormComponent {
   recipe: IRecipe = {
     name: '',
     category: '',
-    ingredients: [{ingredient: "", quantity: ""}]
+    ingredients: [{ingredient: "", quantity: ""}],
+    directions: [{direction: ""}]
   }
 
   recipeForm: FormGroup;
@@ -31,12 +32,18 @@ export class RecipesFormComponent {
           ingredient: '',
           quantity: ''
         })
+      ]),
+      directions: this.fb.array([
+        this.fb.group({
+          direction: ''
+        })
       ])
     });
   }
 
   submit() {
     Object.assign(this.recipe, this.recipeForm.value);
+    console.log(this.recipe);
     this.dataService.insertRecipe(this.recipe).subscribe((recipe: IRecipe) => this.recipe = recipe);
   }
 
@@ -53,6 +60,20 @@ export class RecipesFormComponent {
 
   removeIngredient(i) {
     this.ingredients.removeAt(i);
+  }
+
+  get directions(): FormArray {
+    return this.recipeForm.get('directions') as FormArray;
+  }
+
+  addDirection() {
+    this.directions.push(this.fb.group({
+      direction: ''
+    }));
+  }
+
+  removeDirection(i) {
+    this.directions.removeAt(i);
   }
 
 }

@@ -7,7 +7,7 @@ input.ng-invalid.ng-dirty {
 }
 
 :host {
-  .ingredient-block {
+  .input-block {
     display: flex;
     align-items: flex-start;
 
@@ -15,7 +15,7 @@ input.ng-invalid.ng-dirty {
       padding-left: 20px;
     }
   }
-  .ingredient-info {
+  .inputs {
     width: 100%;
   }
 }

@@ -9,10 +9,15 @@ export interface IRecipe {
   _id?: string,
   name: String,
   category: String,
-  ingredients: [IIngredient]
+  ingredients: [IIngredient],
+  directions: [IDirection]
 }
 
 export interface IIngredient {
   ingredient: String,
   quantity: String
+}
+
+export interface IDirection {
+  direction: String
 }
