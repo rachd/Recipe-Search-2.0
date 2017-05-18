@@ -11,18 +11,21 @@
     <label class="center-block"><input type="radio" formControlName="category" value="Desserts">Desserts</label>
   </div>
   <div class="well well-lg" formArrayName="ingredients">
-    <div *ngFor="let ingredient of ingredients.controls; let i=index" [formGroupName]="i" >
-      <div class="form-group">
-        <label class="center-block">Ingredient:
-          <input class="form-control" formControlName="ingredient">
-        </label>
-      </div>
+    <div *ngFor="let ingredient of ingredients.controls; let i=index" [formGroupName]="i" class="ingredient-block">
+      <div class="ingredient-info">
+        <div class="form-group">
+          <label class="center-block">Ingredient:
+            <input class="form-control" formControlName="ingredient">
+          </label>
+        </div>
 
-      <div class="form-group">
-        <label class="center-block">Quantity:
-          <input class="form-control" formControlName="quantity">
-        </label>
+        <div class="form-group">
+          <label class="center-block">Quantity:
+            <input class="form-control" formControlName="quantity">
+          </label>
+        </div>
       </div>
+      <button class="remove" type="button" (click)="removeIngredient(i)">X</button>
     </div>
     <button type="button" (click)="addIngredient()">Add Ingredient</button>
 

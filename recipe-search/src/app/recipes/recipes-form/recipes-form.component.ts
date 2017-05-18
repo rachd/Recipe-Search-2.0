@@ -51,4 +51,8 @@ export class RecipesFormComponent {
     }));
   }
 
+  removeIngredient(i) {
+    this.ingredients.removeAt(i);
+  }
+
 }
