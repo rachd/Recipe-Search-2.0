@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../../core/data.service';
 import { IRecipe, IIngredient } from '../../shared/interfaces';
 
@@ -26,16 +26,29 @@ export class RecipesFormComponent {
     this.recipeForm = this.fb.group({
       name: ['', Validators.required ],
       category: '',
-      ingredients: this.fb.group({
-        ingredient: '',
-        quantity: ''
-      })
+      ingredients: this.fb.array([
+        this.fb.group({
+          ingredient: '',
+          quantity: ''
+        })
+      ])
     });
   }
 
   submit() {
     console.log(this.recipe);
     // this.dataService.insertRecipe(this.recipe);
+  }
+
+  get ingredients(): FormArray {
+    return this.recipeForm.get('ingredients') as FormArray;
+  }
+
+  addIngredient() {
+    this.ingredients.push(this.fb.group({
+      ingredient: '',
+      quantity: ''
+    }));
   }
 
 }
