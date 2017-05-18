@@ -18,7 +18,6 @@
             <input class="form-control" formControlName="ingredient">
           </label>
         </div>
-
         <div class="form-group">
           <label class="center-block">Quantity:
             <input class="form-control" formControlName="quantity">
@@ -28,9 +27,6 @@
       <button class="remove" type="button" (click)="removeIngredient(i)">X</button>
     </div>
     <button type="button" (click)="addIngredient()">Add Ingredient</button>
-
   </div>
+  <button type="submit" [disabled]="!recipeForm.valid" (click)="submit()">Submit</button>
 </form>
-
-<p>Form value: {{ recipeForm.value | json }}</p>
-<p>Form status: {{ recipeForm.status | json }}</p>

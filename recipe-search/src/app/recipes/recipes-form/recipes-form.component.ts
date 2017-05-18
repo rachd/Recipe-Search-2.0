@@ -36,8 +36,8 @@ export class RecipesFormComponent {
   }
 
   submit() {
-    console.log(this.recipe);
-    // this.dataService.insertRecipe(this.recipe);
+    Object.assign(this.recipe, this.recipeForm.value);
+    this.dataService.insertRecipe(this.recipe).subscribe((recipe: IRecipe) => this.recipe = recipe);
   }
 
   get ingredients(): FormArray {
