@@ -24,4 +24,11 @@ export class RecipeDetailComponent implements OnInit {
     });
   }
 
+  deleteRecipe() {
+    let deleteConfirm = confirm("Are you sure you want to delete this recipe?");
+    if (deleteConfirm) {
+        this.dataService.deleteRecipe(this.recipe._id).subscribe(() => window.location.replace('/'));
+    }
+  }
+
 }

@@ -71,9 +71,9 @@ export class RecipesFormComponent implements OnInit {
   submit() {
     Object.assign(this.recipe, this.recipeForm.value);
     if (this.isEdit) {
-      this.dataService.updateRecipe(this.recipe).subscribe((recipe: IRecipe) => this.recipe = recipe);
+      this.dataService.updateRecipe(this.recipe).subscribe((recipe: IRecipe) => window.location.replace('/recipes/' + recipe._id));
     } else {
-      this.dataService.insertRecipe(this.recipe).subscribe((recipe: IRecipe) => this.recipe = recipe);
+      this.dataService.insertRecipe(this.recipe).subscribe((recipe: IRecipe) => window.location.replace('/recipes/' + recipe._id));
     }
   }
 
