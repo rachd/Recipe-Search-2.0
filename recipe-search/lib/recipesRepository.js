@@ -41,6 +41,7 @@ class RecipesRepository {
     recipe.name = body.name;
     recipe.category = body.category;
     recipe.ingredients = body.ingredients;
+    recipe.directions = body.directions;
 
     recipe.save((err, recipe) => {
       if (err) {
@@ -61,6 +62,7 @@ class RecipesRepository {
       recipe.name = body.name || recipe.name;
       recipe.category = body.category || recipe.category;
       recipe.ingredients = body.ingredients || recipe.ingredients;
+      recipe.directions = body.directions || recipe.directions;
 
       recipe.save((err, recipe) => {
         if (err) {

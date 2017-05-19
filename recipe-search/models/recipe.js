@@ -6,10 +6,15 @@ const IngredientSchema = new Schema({
   quantity: { type: String, required: true, trim: true }
 });
 
+const DirectionSchema = new Schema({
+  direction: { type: String, required: true, trim: true }
+})
+
 const RecipeSchema = new Schema({
   name : { type: String, required: true, trim: true },
   category : { type: String, required: true, trim: true },
-  ingredients: [ IngredientSchema ]
+  ingredients: [ IngredientSchema ],
+  directions: [ DirectionSchema ]
 });
 
 
