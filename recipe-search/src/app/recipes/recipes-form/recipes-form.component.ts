@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params }   from '@angular/router';
 import { DataService } from '../../core/data.service';
 import { IRecipe, IIngredient } from '../../shared/interfaces';
 
@@ -8,7 +9,7 @@ import { IRecipe, IIngredient } from '../../shared/interfaces';
   templateUrl: './recipes-form.component.html',
   styleUrls: ['./recipes-form.component.scss']
 })
-export class RecipesFormComponent {
+export class RecipesFormComponent implements OnInit {
 
   recipe: IRecipe = {
     name: '',
@@ -17,10 +18,38 @@ export class RecipesFormComponent {
     directions: [{direction: ""}]
   }
 
+  isEdit = false;
+
   recipeForm: FormGroup;
 
-  constructor(private dataService: DataService, private fb: FormBuilder) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private route: ActivatedRoute) {
     this.createForm();
+  }
+
+  ngOnInit() {
+    let id = this.route.snapshot.params['id'];
+    if(id !== '0') {
+      this.getRecipe(id);
+      this.isEdit = true;
+    }
+  }
+
+  getRecipe(id: String) {
+    this.dataService.getSingleRecipe(id).subscribe((recipe: IRecipe) => {
+      this.recipe = recipe;
+      this.recipeForm.patchValue({
+        name: this.recipe.name
+      });
+      this.recipeForm.patchValue({
+        category: this.recipe.category
+      });
+      this.recipeForm.patchValue({
+        ingredients: this.recipe.ingredients
+      });
+      this.recipeForm.patchValue({
+        directions: this.recipe.directions
+      });
+    });
   }
 
   createForm() {
@@ -43,8 +72,11 @@ export class RecipesFormComponent {
 
   submit() {
     Object.assign(this.recipe, this.recipeForm.value);
-    console.log(this.recipe);
-    this.dataService.insertRecipe(this.recipe).subscribe((recipe: IRecipe) => this.recipe = recipe);
+    if (this.isEdit) {
+      this.dataService.updateRecipe(this.recipe).subscribe((recipe: IRecipe) => this.recipe = recipe);
+    } else {
+      this.dataService.insertRecipe(this.recipe).subscribe((recipe: IRecipe) => this.recipe = recipe);
+    }
   }
 
   get ingredients(): FormArray {

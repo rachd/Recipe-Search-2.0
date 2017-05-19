@@ -21,7 +21,6 @@ export class RecipeDetailComponent implements OnInit {
   getRecipe(id: String) {
     this.dataService.getSingleRecipe(id).subscribe((recipe: IRecipe) => {
       this.recipe = recipe;
-      console.log(this.recipe);
     });
   }
 
