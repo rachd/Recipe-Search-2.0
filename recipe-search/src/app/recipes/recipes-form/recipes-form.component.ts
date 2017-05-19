@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { DataService } from '../../core/data.service';
-import { IRecipe, IIngredient } from '../../shared/interfaces';
+import { IRecipe, IIngredient, IDirection } from '../../shared/interfaces';
 
 @Component({
   selector: 'app-recipes-form',
@@ -43,12 +43,10 @@ export class RecipesFormComponent implements OnInit {
       this.recipeForm.patchValue({
         category: this.recipe.category
       });
-      this.recipeForm.patchValue({
-        ingredients: this.recipe.ingredients
-      });
-      this.recipeForm.patchValue({
-        directions: this.recipe.directions
-      });
+      this.removeIngredient(0);
+      this.recipe.ingredients.map(ingredient => this.addIngredient(ingredient));
+      this.removeDirection(0);
+      this.recipe.directions.map(direction => this.addDirection(direction));
     });
   }
 
@@ -83,11 +81,8 @@ export class RecipesFormComponent implements OnInit {
     return this.recipeForm.get('ingredients') as FormArray;
   }
 
-  addIngredient() {
-    this.ingredients.push(this.fb.group({
-      ingredient: '',
-      quantity: ''
-    }));
+  addIngredient(ingredient: IIngredient = {ingredient: '', quantity: ''}) {
+    this.ingredients.push(this.fb.group(ingredient));
   }
 
   removeIngredient(i) {
@@ -98,10 +93,8 @@ export class RecipesFormComponent implements OnInit {
     return this.recipeForm.get('directions') as FormArray;
   }
 
-  addDirection() {
-    this.directions.push(this.fb.group({
-      direction: ''
-    }));
+  addDirection(direction: IDirection = {direction: ''}) {
+    this.directions.push(this.fb.group(direction));
   }
 
   removeDirection(i) {
