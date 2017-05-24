@@ -27,8 +27,9 @@ export class RecipesFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    let id = this.route.snapshot.params['id'];
-    if(id !== '0') {
+    if(this.route.snapshot.params['id']) {
+      let id = this.route.snapshot.params['id'];
+      console.log("id: " + id);
       this.getRecipe(id);
       this.isEdit = true;
     }
