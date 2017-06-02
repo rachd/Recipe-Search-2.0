@@ -11,7 +11,13 @@ class RecipesController {
 
   getRecipes(req, res) {
     console.log('*** getRecipes');
-    recipesRepo.getRecipes((err, data) => {
+    let query = "{";
+    if (req.query.name) {
+      query = query + `name: ${req.query.name}`;
+    }
+    query = query + "}";
+    console.log(`*** getRecipes query ${query}`);
+    recipesRepo.getRecipes(query, (err, data) => {
       if (err) {
         console.log(`*** getRecipes error: ${err}`);
         res.json(null);
@@ -20,6 +26,7 @@ class RecipesController {
         res.json(data.recipes);
       }
     });
+
   }
 
   getRecipe(req, res) {
