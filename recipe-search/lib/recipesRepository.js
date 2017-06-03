@@ -6,10 +6,10 @@ class RecipesRepository {
 
   getRecipes(query, callback) {
     console.log('*** RecipesRepo.getRecipes');
+    console.log(`*** RecipesRepo.getRecipe query ${query}`);
     Recipe.count((err, recipeCount) => {
       var count = recipeCount;
       console.log(`Recipes count: ${count}`);
-
       Recipe.find(query, (err, recipes) => {
         if (err) {
           console.log(`*** RecipesRepo.getRecipes error: ${err}`);

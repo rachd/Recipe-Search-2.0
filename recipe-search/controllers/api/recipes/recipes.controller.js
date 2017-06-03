@@ -11,11 +11,15 @@ class RecipesController {
 
   getRecipes(req, res) {
     console.log('*** getRecipes');
-    let query = "{";
-    if (req.query.name) {
-      query = query + `name: ${req.query.name}`;
+    let query = {};
+    if (req.query.category) {
+      query.category = req.query.category;
     }
-    query = query + "}";
+    if (req.query.name) {
+      query.name = { "$regex": req.query.name, "$options": "i" };
+    }
+    console.log(query.name);
+    // console.log(query.category);
     console.log(`*** getRecipes query ${query}`);
     recipesRepo.getRecipes(query, (err, data) => {
       if (err) {
