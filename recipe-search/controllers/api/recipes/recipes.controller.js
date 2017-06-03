@@ -18,6 +18,9 @@ class RecipesController {
     if (req.query.name) {
       query.name = { "$regex": req.query.name, "$options": "i" };
     }
+    if (req.query.ingredients) {
+      query["ingredients.ingredient"] = { "$regex": req.query.ingredients, "$options": "i" };
+    }
     console.log(query.name);
     // console.log(query.category);
     console.log(`*** getRecipes query ${query}`);
