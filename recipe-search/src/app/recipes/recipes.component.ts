@@ -23,4 +23,8 @@ export class RecipesComponent implements OnInit {
     this.dataService.getRecipes({}).subscribe((recipes: IRecipe[]) => this.recipes = recipes);
   }
 
+  filteredRecipes(recipeList: IRecipe[]) {
+    this.recipes = recipeList;
+  }
+
 }

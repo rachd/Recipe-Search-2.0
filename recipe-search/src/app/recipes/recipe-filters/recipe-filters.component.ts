@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { DataService } from '../../core/data.service';
@@ -10,6 +10,8 @@ import { IQuery, IRecipe } from '../../shared/interfaces';
   styleUrls: ['./recipe-filters.component.scss']
 })
 export class RecipeFiltersComponent {
+  @Output() filteredRecipes = new EventEmitter<IRecipe[]>();
+
   query: IQuery = {
     name: '',
     category: '',
@@ -35,7 +37,9 @@ export class RecipeFiltersComponent {
 
   submit() {
     Object.assign(this.query, this.filtersForm.value);
-    this.dataService.getRecipes(this.query).subscribe((recipes: IRecipe[]) => console.log(recipes));
+    this.dataService.getRecipes(this.query).subscribe((recipes: IRecipe[]) => {
+      this.filteredRecipes.emit(recipes)
+    });
   }
 
   get ingredients(): FormArray {
