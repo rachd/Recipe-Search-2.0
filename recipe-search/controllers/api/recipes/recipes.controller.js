@@ -18,11 +18,11 @@ class RecipesController {
     if (req.query.name) {
       query.name = { "$regex": req.query.name, "$options": "i" };
     }
-    let subingredents = [];
-    for (let ingredient of req.query.ingredients) {
-      subingredents.push({ "$regex": ingredient})
-    }
     if (req.query.ingredients) {
+      let subingredents = [];
+      for (let ingredient of req.query.ingredients) {
+        subingredents.push({ "$regex": ingredient})
+      }
       // query["ingredients.ingredient"] = { "$all": subingredents };
       query["ingredients.ingredient"] = { "$all": req.query.ingredients };
     }

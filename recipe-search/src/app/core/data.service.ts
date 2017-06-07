@@ -7,7 +7,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { IRecipe } from '../shared/interfaces';
+import { IRecipe, IQuery } from '../shared/interfaces';
 
 @Injectable()
 export class DataService {
@@ -18,8 +18,28 @@ export class DataService {
 
     }
 
-    getRecipes(): Observable<IRecipe[]> {
-      return this.http.get(this.baseUrl)
+    getRecipes(query: IQuery): Observable<IRecipe[]> {
+      let url = this.baseUrl;
+      url = url + "?";
+      if(query.name) {
+        url = url + `name=${query.name}`;
+        if (query.category || query.ingredients) {
+          url = url + "&";
+        }
+      }
+      if (query.category) {
+        url = url + `category=${query.category}`;
+        if (query.ingredients) {
+          url = url + "&";
+        }
+      }
+      if (query.ingredients) {
+        for (let ingredient of query.ingredients) {
+          url = url + `ingredients=${ingredient.ingredient}&`;
+        }
+        url = url.substring(0, url.length - 1);
+      }
+      return this.http.get(url)
         .map((res: Response) => res.json())
         .catch(this.handleError);
     }

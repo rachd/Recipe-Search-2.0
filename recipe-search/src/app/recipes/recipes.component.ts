@@ -20,7 +20,7 @@ export class RecipesComponent implements OnInit {
   }
 
   getRecipes() {
-    this.dataService.getRecipes().subscribe((recipes: IRecipe[]) => this.recipes = recipes);
+    this.dataService.getRecipes({}).subscribe((recipes: IRecipe[]) => this.recipes = recipes);
   }
 
 }
