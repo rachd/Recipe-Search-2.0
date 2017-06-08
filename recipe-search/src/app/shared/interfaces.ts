@@ -21,3 +21,9 @@ export interface IIngredient {
 export interface IDirection {
   direction: String
 }
+
+export interface IQuery {
+  name?: String,
+  category?: String,
+  ingredients?: [{ingredient: String}]
+}

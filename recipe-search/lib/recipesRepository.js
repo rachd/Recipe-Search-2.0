@@ -4,13 +4,13 @@ const mongoose = require('mongoose'),
 
 class RecipesRepository {
 
-  getRecipes(callback) {
+  getRecipes(query, callback) {
     console.log('*** RecipesRepo.getRecipes');
+    console.log(`*** RecipesRepo.getRecipe query ${query}`);
     Recipe.count((err, recipeCount) => {
       var count = recipeCount;
       console.log(`Recipes count: ${count}`);
-
-      Recipe.find({}, (err, recipes) => {
+      Recipe.find(query, (err, recipes) => {
         if (err) {
           console.log(`*** RecipesRepo.getRecipes error: ${err}`);
           return callback(err);

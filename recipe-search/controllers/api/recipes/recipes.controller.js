@@ -11,7 +11,23 @@ class RecipesController {
 
   getRecipes(req, res) {
     console.log('*** getRecipes');
-    recipesRepo.getRecipes((err, data) => {
+    let query = {};
+    if (req.query.category) {
+      query.category = req.query.category;
+    }
+    if (req.query.name) {
+      query.name = { "$regex": req.query.name, "$options": "i" };
+    }
+    if (req.query.ingredients) {
+      let subingredents = [];
+      for (let ingredient of req.query.ingredients) {
+        subingredents.push({ "$regex": ingredient})
+      }
+      // query["ingredients.ingredient"] = { "$all": subingredents };
+      query["ingredients.ingredient"] = { "$all": req.query.ingredients };
+    }
+    console.log(`*** getRecipes query ${query}`);
+    recipesRepo.getRecipes(query, (err, data) => {
       if (err) {
         console.log(`*** getRecipes error: ${err}`);
         res.json(null);
@@ -20,6 +36,7 @@ class RecipesController {
         res.json(data.recipes);
       }
     });
+
   }
 
   getRecipe(req, res) {
