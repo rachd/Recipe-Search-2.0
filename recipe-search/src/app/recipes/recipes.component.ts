@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../core/data.service';
 import { IRecipe } from '../shared/interfaces';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   moduleId: module.id,
@@ -10,21 +12,18 @@ import { IRecipe } from '../shared/interfaces';
 })
 export class RecipesComponent implements OnInit {
   title: String;
-  recipes: IRecipe[];
+  recipes: Observable<any[]>;
 
-  constructor(private dataService: DataService) { }
+  constructor(db: AngularFirestore) {
+    this.recipes = db.collection<IRecipe>('recipes').valueChanges();
+  }
 
   ngOnInit() {
     this.title = "Recipes";
-    this.getRecipes();
-  }
-
-  getRecipes() {
-    this.dataService.getRecipes({}).subscribe((recipes: IRecipe[]) => this.recipes = recipes);
   }
 
   filteredRecipes(recipeList: IRecipe[]) {
-    this.recipes = recipeList;
+  //   this.recipes = recipeList;
   }
 
 }
