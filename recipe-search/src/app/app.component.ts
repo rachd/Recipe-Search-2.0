@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Component({
   moduleId: module.id,
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./_mixins.scss']
 })
 export class AppComponent {
-
+  constructor(db: AngularFirestore){}
 }
