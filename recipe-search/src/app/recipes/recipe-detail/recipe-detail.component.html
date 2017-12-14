@@ -1,5 +1,5 @@
 <div class="recipe-detail" *ngIf="recipe">
-  <a href="/recipes/edit/{{recipe._id}}">Edit Recipe</a>
+  <a href="/recipes/edit/{{recipe.id}}">Edit Recipe</a>
   <button type="button" (click)="deleteRecipe()">Delete Recipe</button>
   <h1>{{recipe.name}}</h1>
   <h3>{{recipe.category}}</h3>

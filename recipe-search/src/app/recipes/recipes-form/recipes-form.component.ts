@@ -33,26 +33,33 @@ export class RecipesFormComponent implements OnInit {
   ngOnInit() {
     if(this.route.snapshot.params['id']) {
       let id = this.route.snapshot.params['id'];
-      // this.getRecipe(id);
-      // this.isEdit = true;
+      this.getRecipe(id);
+      this.isEdit = true;
     }
   }
 
-  // getRecipe(id: String) {
-  //   this.dataService.getSingleRecipe(id).subscribe((recipe: IRecipe) => {
-  //     this.recipe = recipe;
-  //     this.recipeForm.patchValue({
-  //       name: this.recipe.name
-  //     });
-  //     this.recipeForm.patchValue({
-  //       category: this.recipe.category
-  //     });
-  //     this.removeIngredient(0);
-  //     this.recipe.ingredients.map(ingredient => this.addIngredient(ingredient));
-  //     this.removeDirection(0);
-  //     this.recipe.directions.map(direction => this.addDirection(direction));
-  //   });
-  // }
+  getRecipe(id:string) {
+    let docRef = this.afs.collection('recipes').doc(id);
+    docRef.ref.get().then((doc) => {
+        if (doc.exists) {
+          this.recipe = doc.data() as IRecipe;
+          this.recipeForm.patchValue({
+            name: this.recipe.name
+          });
+          this.recipeForm.patchValue({
+            category: this.recipe.category
+          });
+          this.removeIngredient(0);
+          this.recipe.ingredients.map(ingredient => this.addIngredient(ingredient));
+          this.removeDirection(0);
+          this.recipe.directions.map(direction => this.addDirection(direction));
+        } else {
+            console.log("No such document!");
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+  }
 
   createForm() {
     this.recipeForm = this.fb.group({
