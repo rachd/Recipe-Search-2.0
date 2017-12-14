@@ -81,7 +81,7 @@ export class RecipesFormComponent implements OnInit {
 
   submit() {
     Object.assign(this.recipe, this.recipeForm.value);
-    this.recipe.id = this.afs.createId();
+    this.recipe.id = this.recipe.id ? this.recipe.id : this.afs.createId();
     this.itemsCollection.doc(this.recipe.id).set(this.recipe, { merge: true })
     .then(() => window.location.replace('/recipes/' + this.recipe.id));
   }
