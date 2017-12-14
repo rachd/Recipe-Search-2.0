@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
-import { DataService } from '../../core/data.service';
 import { IRecipe } from '../../shared/interfaces';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
@@ -13,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 export class RecipeDetailComponent{// implements OnInit {
   recipe: IRecipe;
 
-  constructor(private afs: AngularFirestore, private dataService: DataService, private route: ActivatedRoute) {    
+  constructor(private afs: AngularFirestore, private route: ActivatedRoute) {    
   }
 
   ngOnInit() {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { IRecipe, IIngredient, IDirection } from '../../shared/interfaces';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -74,15 +74,9 @@ export class RecipesFormComponent implements OnInit {
 
   submit() {
     Object.assign(this.recipe, this.recipeForm.value);
-    this.recipe._id = this.afs.createId();
-    // if (this.isEdit) {
-    //   this.dataService.updateRecipe(this.recipe).subscribe((recipe: IRecipe) => window.location.replace('/recipes/' + recipe._id));
-    // } else {
-    //   this.dataService.insertRecipe(this.recipe).subscribe((recipe: IRecipe) => window.location.replace('/recipes/' + recipe._id));
-    // }
-    this.itemsCollection.add(this.recipe);
-    window.location.replace('/recipes/' + this.recipe._id);
-
+    this.recipe.id = this.afs.createId();
+    this.itemsCollection.doc(this.recipe.id).set(this.recipe, { merge: true })
+    .then(() => window.location.replace('/recipes/' + this.recipe.id));
   }
 
   get ingredients(): FormArray {
