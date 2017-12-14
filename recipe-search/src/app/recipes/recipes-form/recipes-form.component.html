@@ -1,0 +1,43 @@
+<form [formGroup]="recipeForm" novalidate>
+  <div class="form-group">
+    <label class="center-block">Name:
+      <input type="text" class="form-control" formControlName="name">
+    </label>
+  </div>
+  <div class="form-group radio">
+    <p>Category:</p>
+    <label class="center-block"><input type="radio" formControlName="category" value="Breads">Breads</label>
+    <label class="center-block"><input type="radio" formControlName="category" value="Soups">Soups</label>
+    <label class="center-block"><input type="radio" formControlName="category" value="Desserts">Desserts</label>
+  </div>
+  <div class="well well-lg" formArrayName="ingredients">
+    <div *ngFor="let ingredient of ingredients.controls; let i=index" [formGroupName]="i" class="input-block">
+      <div class="inputs">
+        <div class="form-group">
+          <label class="center-block">Ingredient:
+            <input class="form-control" formControlName="ingredient">
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="center-block">Quantity:
+            <input class="form-control" formControlName="quantity">
+          </label>
+        </div>
+      </div>
+      <button type="button" (click)="removeIngredient(i)">X</button>
+    </div>
+    <button type="button" (click)="addIngredient()">Add Ingredient</button>
+  </div>
+  <div class="well well-lg" formArrayName="directions">
+    <div *ngFor="let direction of directions.controls; let i=index" [formGroupName]="i" class="input-block">
+      <div class="form-group inputs">
+        <label class="center-block">Direction:
+          <input class="form-control" formControlName="direction">
+        </label>
+      </div>
+      <button type="button" (click)="removeDirection(i)">X</button>
+    </div>
+    <button type="button" (click)="addDirection()">Add Direction</button>
+  </div>
+  <button type="submit" [disabled]="!recipeForm.valid" (click)="submit()">Submit</button>
+</form>

@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./_mixins.scss']
 })
 export class AppComponent {
-
+  constructor(){}
 }
