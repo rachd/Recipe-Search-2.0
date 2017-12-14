@@ -11,14 +11,15 @@ import { Observable } from 'rxjs/Observable';
 })
 export class RecipeDetailComponent{// implements OnInit {
   recipe: IRecipe;
+  docRef;
 
   constructor(private afs: AngularFirestore, private route: ActivatedRoute) {    
   }
 
   ngOnInit() {
     let id = this.route.snapshot.params['id'];    
-    let docRef = this.afs.collection('recipes').doc(id);
-    docRef.ref.get().then((doc) => {
+    this.docRef = this.afs.collection('recipes').doc(id);
+    this.docRef.ref.get().then((doc) => {
         if (doc.exists) {
           console.log(doc.data());
             this.recipe = doc.data() as IRecipe;
@@ -31,10 +32,10 @@ export class RecipeDetailComponent{// implements OnInit {
   }
 
   deleteRecipe() {
-    // let deleteConfirm = confirm("Are you sure you want to delete this recipe?");
-    // if (deleteConfirm) {
-    //     this.dataService.deleteRecipe(this.recipe._id).subscribe(() => window.location.replace('/'));
-    // }
+    let deleteConfirm = confirm("Are you sure you want to delete this recipe?");
+    if (deleteConfirm) {
+      this.docRef.ref.delete().then(() => window.location.replace('/'));
+    }
   }
 
 }
