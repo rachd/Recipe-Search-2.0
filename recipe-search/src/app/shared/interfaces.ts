@@ -6,24 +6,24 @@ export interface IRouting {
 }
 
 export interface IRecipe {
-  id?: string,
-  name: String,
-  category: String,
-  ingredients: [IIngredient],
-  directions: [IDirection]
+  id: string,
+  name?: String,
+  category?: String,
+  ingredients?: [IIngredient],
+  directions?: [IDirection]
 }
 
 export interface IIngredient {
-  ingredient: String,
-  quantity: String
+  ingredient?: String,
+  quantity?: String
 }
 
 export interface IDirection {
-  direction: String
+  direction?: String
 }
 
 export interface IQuery {
-  name?: String,
-  category?: String,
-  ingredients?: [{ingredient: String}]
+  name?: string,
+  category?: string,
+  ingredients?: [{ingredient: string}]
 }

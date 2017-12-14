@@ -2,6 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { IQuery, IRecipe } from '../../shared/interfaces';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'recipe-filters',
@@ -9,7 +11,7 @@ import { IQuery, IRecipe } from '../../shared/interfaces';
   styleUrls: ['./recipe-filters.component.scss']
 })
 export class RecipeFiltersComponent {
-  @Output() filteredRecipes = new EventEmitter<IRecipe[]>();
+  @Output() filteredRecipes = new EventEmitter<Object>();
 
   query: IQuery = {
     name: '',
@@ -17,9 +19,11 @@ export class RecipeFiltersComponent {
     ingredients : [{ingredient: ''}]
   }
   filtersForm: FormGroup;
+  private itemsCollection: AngularFirestoreCollection<IRecipe>;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private afs: AngularFirestore) {
     this.createForm();
+    this.itemsCollection = afs.collection<IRecipe>('recipes');
   }
 
   createForm() {
@@ -36,9 +40,7 @@ export class RecipeFiltersComponent {
 
   submit() {
     Object.assign(this.query, this.filtersForm.value);
-    // this.dataService.getRecipes(this.query).subscribe((recipes: IRecipe[]) => {
-    //   this.filteredRecipes.emit(recipes)
-    // });
+    this.filteredRecipes.emit({category:this.query.category});
   }
 
   get ingredients(): FormArray {
