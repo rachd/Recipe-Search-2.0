@@ -40,7 +40,7 @@ export class RecipeFiltersComponent {
 
   submit() {
     Object.assign(this.query, this.filtersForm.value);
-    this.filteredRecipes.emit({category:this.query.category});
+    this.filteredRecipes.emit(this.query);
   }
 
   get ingredients(): FormArray {

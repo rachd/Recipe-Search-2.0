@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/Observable';
 export class RecipesFormComponent implements OnInit {
 
   recipe: IRecipe = {
+    id: '',
     name: '',
     category: '',
     ingredients: [{ingredient: "", quantity: ""}],

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IRecipe, IQuery } from '../shared/interfaces';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable, Subject } from 'rxjs';
+import * as firebase from 'firebase';
 
 @Component({
   moduleId: module.id,
@@ -12,15 +13,20 @@ import { Observable, Subject } from 'rxjs';
 export class RecipesComponent implements OnInit {
   title: String;
   recipeObservable: Observable<any[]>;
-  query: Subject<string>;
+  query: Subject<IQuery>;
   queryObservable: Observable<any[]>;
   recipes: IRecipe[];
 
   constructor(db: AngularFirestore) {
     this.recipeObservable = db.collection<IRecipe>('recipes').valueChanges();
-    this.query = new Subject<string>();
-    this.queryObservable = this.query.switchMap(category =>
-      db.collection('recipes', ref => ref.where('category', '==', category)).valueChanges());
+    this.query = new Subject<IQuery>();
+    this.queryObservable = this.query.switchMap(({name, category, ingredients}) =>
+      db.collection('recipes', ref => {
+        let query : firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+        if (category) { query = query.where('category', '==', category) };
+        if (name) { query = query.where('name', '==', name) };
+        return query;
+      }).valueChanges());
   }
 
   ngOnInit() {
@@ -34,7 +40,7 @@ export class RecipesComponent implements OnInit {
   }
 
   filteredRecipes(queryList: IQuery) {
-    this.query.next(queryList.category);
+    this.query.next(queryList);
   }
 
 }
